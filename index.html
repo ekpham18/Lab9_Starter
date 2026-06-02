@@ -86,6 +86,14 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
+  
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "af0813b8fb734bbc9eb04ecba43fbbf6"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
 
   <script>
     let form = document.querySelector('form');
@@ -102,6 +110,113 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let logButton = document.querySelector('#error-btns > button:nth-child(1)');
+    logButton.addEventListener('click', () => {
+      console.log('console log message!!!');
+    });
+
+    let errorButton = document.querySelector('#error-btns > button:nth-child(2)');
+    errorButton.addEventListener('click', () => {
+      console.error('console error message!!!');
+    });
+
+    let countButton = document.querySelector('#error-btns > button:nth-child(3)');
+    countButton.addEventListener('click', () => {
+      console.count('console count message!!!');
+    });
+
+    let warnButton = document.querySelector('#error-btns > button:nth-child(4)');
+    warnButton.addEventListener('click', () => {
+      console.warn('console warn message!!!');
+    });
+
+    
+    let assertButton = document.querySelector('#error-btns > button:nth-child(5)');
+    assertButton.addEventListener('click', () => {
+      let firstNum = document.querySelector('#first-num').value;
+      let secondNum = document.querySelector('#second-num').value;
+      console.assert(firstNum < secondNum, { firstNum, secondNum, message: 'firstNum expected to be less than secondNum' });
+    });
+
+    let clearButton = document.querySelector('#error-btns > button:nth-child(6)');
+    clearButton.addEventListener('click', () => {
+      console.clear();
+    });
+
+    let dirButton = document.querySelector('#error-btns > button:nth-child(7)');
+    dirButton.addEventListener('click', () => {
+      console.dir(dirButton);
+    });
+
+    let dirxmlButton = document.querySelector('#error-btns > button:nth-child(8)');
+    dirxmlButton.addEventListener('click', () => {
+      console.dirxml(dirxmlButton);
+    });
+
+    let groupStartButton = document.querySelector('#error-btns > button:nth-child(9)');
+    groupStartButton.addEventListener('click', () => {
+      console.group('console group start message!!!');
+    });
+
+    let groupEndButton = document.querySelector('#error-btns > button:nth-child(10)');
+    groupEndButton.addEventListener('click', () => {  
+      console.groupEnd();
+    });
+
+    let tableButton = document.querySelector('#error-btns > button:nth-child(11)');
+    tableButton.addEventListener('click', () => {
+      console.table(['coffee', 'thai tea', 'mango milk']);
+    });
+
+    let startTimerButton = document.querySelector('#error-btns > button:nth-child(12)');
+    startTimerButton.addEventListener('click', () => {
+      try {
+        let label;
+        if (!label) throw new Error('Missing timer start label');
+        console.time(label);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        console.log('Timer clicked');
+      }
+    });
+
+    let endTimerButton = document.querySelector('#error-btns > button:nth-child(13)');
+    endTimerButton.addEventListener('click', () => {
+      try {
+        let label;
+        if (!label) throw new Error('Missing timer end label');
+        console.timeEnd(label);
+      } catch (error) {
+        console.log('test');
+        console.error(error);
+      } finally {
+        console.log('Timer end clicked');
+      }
+    });
+
+    let traceButton = document.querySelector('#error-btns > button:nth-child(14)');
+    traceButton.addEventListener('click', () => { 
+      const firstFunction = () => {
+        secondFunction();
+      };
+      const secondFunction = () => {
+        thirdFunction();
+      };
+      const thirdFunction = () => {
+        console.trace();
+      };
+      firstFunction();
+    });
+
+    let globalErrorButton = document.querySelector('#error-btns > button:nth-child(15)');
+    globalErrorButton.addEventListener('click', () => {
+      try {
+        throw new Error('This is a global error!!!');
+      } catch (error) {
+        console.log('Caught global error:', error.message); 
+      }
+    });
   </script>
 </body>
 
